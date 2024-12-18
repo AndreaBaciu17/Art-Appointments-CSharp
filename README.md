@@ -8,6 +8,7 @@
 ArtConnect is a full-stack web application built with ASP.NET Core MVC and MongoDB that simplifies the process of scheduling and managing art-related appointments. This project demonstrates the power of integrating MongoDB with Entity Framework Core for seamless CRUD operations while offering a user-friendly interface for both comissioning clients and art enthusiasts.
 
 ## 🚀 Features
+![Art Appointments Application Demo](https://github.com/user-attachments/assets/9db6ed1d-2fc9-4d13-b855-8940b6336f8e)
 - **Artists Management**:
   - Add, edit, and delete artist profiles.
   - Store artist details like name, art style, bio, and contact information.
