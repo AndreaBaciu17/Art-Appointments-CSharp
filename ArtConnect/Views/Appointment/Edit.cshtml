@@ -1,0 +1,40 @@
+<!-- added 12.13.24: created 'edit' feature f or frontend of appointments created in database -->
+@model Appointment
+
+<h2>Edit Appointment for @Model.OwnerId on @Model.date.ToLocalTime()</h2>
+<hr> />
+
+<form asp-action="Edit" asp-controller="Appointment" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="date" class="form-label">Appointment Date and Time</label>
+        <input asp-for="date" type="datetime-local" value="@Model.date.ToLocalTime().ToString("yyyy-MM-ddTHH:mm")" class="form-control" />
+        <span asp-validation-for="date" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="description" class="form-label">Describe purpose of appointment</label>
+        <textarea asp-for="description" class="form-control"></textarea>
+        <span asp-validation-for="description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="format" class="form-label">Meeting Format</label>
+        <input asp-for="format" class="form-control" />
+        <span asp-validation-for="format" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="timeAllotted" class="form-label">Time Allotted (minutes)</label>
+        <input asp-for="timeAllotted" type="number" class="form-control" />
+        <span asp-validation-for="timeAllotted" class="text-danger"></span>
+    </div>
+
+    <input type="submit" value="Update Appointment Details" class="btn btn-primary" />
+</form>
+
+<div>
+    <a asp-controller="AppointmentController" asp-action="Index">Back to Appointments</a>
+</div>

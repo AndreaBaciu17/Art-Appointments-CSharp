@@ -1,0 +1,45 @@
+<!-- added 11.27.24: created view for frontend of account owners in database -->
+
+@model ArtConnect.ViewModels.OwnerListViewModel
+
+@if (TempData["OwnerRemoved"] != null)
+{
+    <p> class="text-success">@TempData["OwnerRemoved"]</p>
+}
+@if (!Model.Owners.Any()) 
+{
+    <p>No owners found.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Style Type</th>
+                <th>About</th>
+                <th>Contact</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var owner in Model.Owners)
+            {
+                <tr>
+                    <td>@owner.ownerName</td>
+                    <td>@owner.style</td>
+                    <td>@owner.aboutMe</td>
+                    <td>@owner.contactInfo</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@owner.Id.ToString()" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@owner.Id.ToString()" class="btn btn-danger btn-sm">Delete</a>
+                        <a asp-controller="Appointment" asp-action="Add" asp-route-ownerId="@owner.Id.ToString()" class="btn btn-primary btn-sm">Schedule Appointment</a> <!--12.4.24: added 'primary' button to 'Appointment'- controller-->
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<p>
+    <a class="btn btn-success" asp-action="Add">Add new Owner</a> <!--12.4.24: changed from 'primary'- to 'success'-->
+</p>

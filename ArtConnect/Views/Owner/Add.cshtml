@@ -1,0 +1,45 @@
+<!-- added 12.4.24: created 'add' feature for frontend of account owners in database -->
+@model OwnerAddViewModel
+
+<h2>Add a new account Owner</h2>
+<hr />
+
+@if (ViewData["ErrorMessage"] != null)
+{
+    <p class="text-danger">@ViewData["ErrorMessage"]</p>
+}
+
+<form method="post" asp-controller="OwnerController" asp-action="Add" > <!-- 12.12.24: fixed asp-controller error -->
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Owner.ownerName" class="form-label">Name</label>
+        <input asp-for="Owner.ownerName" class="form-control" />
+        <span asp-validation-for="Owner.ownerName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Owner.style" class="form-label">Style</label>
+        <input asp-for="Owner.style" class="form-control" />
+        <span asp-validation-for="Owner.style" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Owner.aboutMe" class="form-label">About</label>
+        <textarea asp-for="Owner.aboutMe" class="form-control"></textarea> <!--added 'textarea'field -->
+        <span asp-validation-for="Owner.aboutMe" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Owner.contactInfo" class="form-label">Contact Info</label>
+        <input asp-for="Owner.contactInfo" class="form-control" />
+        <span asp-validation-for="Owner.contactInfo" class="text-danger"></span>
+    </div>
+
+    <input type="submit" value="Add Owner" class="btn btn-primary" />
+</form>
+
+<div>
+    <a asp-controller="Owner" asp-action="Index">Back to Art Appointments</a>
+</div>

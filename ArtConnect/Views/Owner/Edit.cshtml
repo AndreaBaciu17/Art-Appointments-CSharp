@@ -1,0 +1,41 @@
+<!-- added 12.4.24: created 'edit' feature to allow users to make  changes in database -->
+
+@model Owner
+
+<h2>Update @Model.ownerName</h2>
+<hr />
+
+<form method="post" asp-controller="Owner" asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="ownerName" class="form-label">Account Name</label>
+        <input asp-for="ownerName" class="form-control" />
+        <span asp-validation-for="ownerName" class="text-danger"/>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="style" class="form-label">Art Style Type</label>
+        <input asp-for="style" class="form-control" />
+        <span asp-validation-for="style" class="text-danger"/>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="aboutMe" class="form-label">About</label>
+        <textarea asp-for="aboutMe" class="form-control"></textarea>
+        <span asp-validation-for="aboutMe" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="contactInfo" class="form-label">Contact Info</label>
+        <input asp-for="contactInfo" class="form-control" />
+        <span asp-validation-for="contactInfo" class="text-danger"></span>
+    </div>
+
+    <input type="submit" class="Update owner" value="Save Changes" />
+</form>
+
+<div>
+    <a asp-controller="Owner" asp-action="Index">Back to Art Appointments</a>
+<div>

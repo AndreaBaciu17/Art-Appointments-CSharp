@@ -1,0 +1,33 @@
+<!-- added 12.12.24: created 'add' feature for frontend of account owners in database -->
+@model AppointmentAddViewModel
+
+<h2>Schedule Appointment</h2>
+@if (ViewData["ErrorMessage"] != null)
+{
+    <p class="text-danger">@ViewData["ErrorMessage"]</p>
+}
+
+<form method="post" asp-controller="AppointmentController" asp-action="Add">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="hidden" asp-for="Appointment.Id" />
+    <input type="hidden" asp-for="Appointment.OwnerId" />
+
+    <div class="mb-3">
+        <label asp-for="Appointment.date" class="form-label">Date</label>
+        <input asp-for="Appointment.date" type="datetime-local" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+        <span asp-validation-for="Appointment.date" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Appointment.description" class="form-label">Describe purpose of appointment</label>
+        <textarea asp-for="Appointment.description" class="form-control"></textarea>
+        <span asp-validation-for="Appointment.description" class="text-danger"></span>
+    </div>
+    
+
+    <input type="submit" class="btn btn-primary" value="Schedule" />
+</form>
+
+<p>
+    <a asp-action="Index">Back to Appointments</a>
+</p>

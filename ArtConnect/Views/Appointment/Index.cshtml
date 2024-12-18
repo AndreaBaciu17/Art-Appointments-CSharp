@@ -1,0 +1,43 @@
+<!-- added 12.12.24: created view for frontend of booking appointments in database -->
+@model AppointmentListViewModel
+
+@if (TempData["AppointmentDeleted"] != null)
+{
+    <p class="="text-success">@TempData["AppointmentDeleted"]</p>
+}
+
+@if (!Model.Appointments.Any())
+{
+    <p>No appointments found.</p>
+}
+else
+{
+    <table class="table table-condensed table-boarded">
+        <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Format</th>
+            <th>Time Allotted</th>
+            <th>Link</th>
+        </tr>
+
+        @foreach (var appointment in Model.Appointments)
+        {
+            <tr>
+                <td>@appointment.date.ToLocalTime()</td>
+                <td>@appointment.description</td>
+                <td>@appointment.format</td>
+                <td>@appointment.timeAllotted</td>
+                <td>@appointment.Link</td>
+                <td>@appointment.OwnertimeZone</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@appointment.Id.ToString()">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@appointment.Id.ToString()" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+<p>
+    <a asp-action="Add" class="btn btn-success">Add Appointment</a>
+</p>

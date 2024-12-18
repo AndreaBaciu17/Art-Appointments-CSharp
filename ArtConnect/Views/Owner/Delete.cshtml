@@ -1,0 +1,51 @@
+<!-- added 12.6.24: created 'delete' feature to allow users to delete a document in database -->
+
+@model Owner
+
+<h2>Deleting @Model.ownerName</h2>
+<hr />
+
+@if(ViewData["ErrorMessage"] != null)
+{
+    <p class="text-danger">@ViewData["ErrorMessage"]</p>
+}
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-4">
+            <label asp-for="ownerName">Name</label>
+        </dt>
+        <dd class="col-sm-8">
+            @Model?.ownerName
+        </dd>
+        <dt class="col-sm-4">
+            <label asp-for="style">Style</label>
+        </dt>
+        <dd class="col-sm-8">
+            @Model?.style
+        </dd>
+        <dt class="col-sm-4">
+            <label asp-for="aboutMe">About</label>
+        </dt>
+        <dd class="col-sm-8">
+            @Model?.aboutMe
+        </dd>
+        <dt class="col-sm-4">
+            <label asp-for="contactInfo">Contact Info</label>
+        </dt>
+        <dd class="col-sm-8">
+            @Model?.contactInfo
+        </dd>
+    </dl>
+</div>
+
+
+<!-- creates form to reconfirm deleting user account -->
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" class="btn btn-danger" value="Delete owner" onclick="javascript: return confirm('Please confirm to delete this account owner');" />
+</form>
+
+<div>
+    <a asp-controller="OwnerController" asp-action="Index">Back to Art Appointments</a>
+</div>
