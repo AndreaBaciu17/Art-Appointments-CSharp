@@ -24,8 +24,8 @@ namespace ArtConnect.Models
         [Required(ErrorMessage = "Appointment date and time are required")]
         public DateTime date { get; set; }
 
-        [Display(Name = "Owner's Timezone")]
-        public DateTimeOffset OwnertimeZone { get; set; }
+        [Display(Name = "Your Timezone")]
+        public DateTimeOffset? OwnertimeZone { get; set; }
 
         public string? Link { get; set; }
     }

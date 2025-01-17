@@ -45,3 +45,4 @@ C:\Users\baciu\OneDrive\Documents\CS Career\VS Code Projects\Art Appointments(C#
 C:\Users\baciu\OneDrive\Documents\CS Career\VS Code Projects\Art Appointments(C#)\ArtConnect\obj\Debug\net8.0\ArtConnect.pdb
 C:\Users\baciu\OneDrive\Documents\CS Career\VS Code Projects\Art Appointments(C#)\ArtConnect\obj\Debug\net8.0\ArtConnect.genruntimeconfig.cache
 C:\Users\baciu\OneDrive\Documents\CS Career\VS Code Projects\Art Appointments(C#)\ArtConnect\obj\Debug\net8.0\ref\ArtConnect.dll
+C:\Users\baciu\OneDrive\Documents\CS Career\VS Code Projects\Art Appointments(C#)\ArtConnect\obj\Debug\net8.0\ArtConnect.sourcelink.json

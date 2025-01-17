@@ -1,6 +1,6 @@
 <!-- added 11.27.24: created view for frontend of account owners in database -->
 
-@model ArtConnect.ViewModels.OwnerListViewModel
+@model OwnerListViewModel
 
 @if (TempData["OwnerRemoved"] != null)
 {
@@ -29,7 +29,17 @@ else
                     <td>@owner.ownerName</td>
                     <td>@owner.style</td>
                     <td>@owner.aboutMe</td>
-                    <td>@owner.contactInfo</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(owner.contactInfo))
+                        {
+                            <a href="@owner.contactInfo" target="_blank">@owner.contactInfo</a>
+                        }
+                        else
+                        {
+                            <span>No Contact Info</span>
+                        }
+                    </td>
+
                     <td>
                         <a asp-action="Edit" asp-route-id="@owner.Id.ToString()" class="btn btn-warning btn-sm">Edit</a>
                         <a asp-action="Delete" asp-route-id="@owner.Id.ToString()" class="btn btn-danger btn-sm">Delete</a>

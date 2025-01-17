@@ -7,7 +7,7 @@
     <p class="text-danger">@ViewData["ErrorMessage"]</p>
 }
 
-<form method="post" asp-controller="AppointmentController" asp-action="Add">
+<form method="post" asp-controller="Appointment" asp-action="Add">
     <div asp-validation-summary="All" class="text-danger"></div>
     <input type="hidden" asp-for="Appointment.Id" />
     <input type="hidden" asp-for="Appointment.OwnerId" />
@@ -23,7 +23,27 @@
         <textarea asp-for="Appointment.description" class="form-control"></textarea>
         <span asp-validation-for="Appointment.description" class="text-danger"></span>
     </div>
-    
+
+    <!-- added 1.17.25: updated 'format' field to 'meetingFormat' -->
+    <div class="mb-3">
+        <label asp-for="Appointment.OwnertimeZone" class="form-label">What is your Time Zone?</label>
+        <input asp-for="Appointment.OwnertimeZone" class="form-control" value="@(Model.Appointment?.OwnertimeZone?.ToString("o") ?? "")" />
+        <span asp-validation-for="Appointment.OwnertimeZone" class="text-danger"></span>
+    </div>
+
+    <!-- 1.17.25: added meeting format to add appointments section -->
+    <div class="mb-3">
+        <label asp-for="Appointment.format" class="form-label">How would your like to meet?</label>
+        <input asp-for="Appointment.format" class="form-control" />
+        <span asp-validation-for="Appointment.format" class="text-danger"></span>
+    </div>
+
+    <!-- 1.17.25: added Time Allotted to add appointments section -->
+    <div class="mb-3">
+        <label asp-for="Appointment.timeAllotted" class="form-label">For how many minutes are we meeting?</label>
+        <input asp-for="Appointment.timeAllotted" type="number" class="form-control" />
+        <span asp-validation-for="Appointment.timeAllotted" class="text-danger"></span>
+    </div>
 
     <input type="submit" class="btn btn-primary" value="Schedule" />
 </form>

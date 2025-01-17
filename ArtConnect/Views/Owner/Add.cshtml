@@ -9,7 +9,7 @@
     <p class="text-danger">@ViewData["ErrorMessage"]</p>
 }
 
-<form method="post" asp-controller="OwnerController" asp-action="Add" > <!-- 12.12.24: fixed asp-controller error -->
+<form method="post" asp-controller="Owner" asp-action="Add" > <!-- 12.24.24: fixed asp-controller error -->
 
     <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -37,9 +37,16 @@
         <span asp-validation-for="Owner.contactInfo" class="text-danger"></span>
     </div>
 
+    <!-- 12.24.24: Add the missing timezone field -->
+    <div class="mb-3">
+        <label asp-for="Owner.timeZone" class="form-label">Time Zone</label>
+        <input asp-for="Owner.timeZone" class="form-control" />
+        <span asp-validation-for="Owner.timeZone" class="text-danger"></span>
+    </div>
+
     <input type="submit" value="Add Owner" class="btn btn-primary" />
 </form>
 
 <div>
-    <a asp-controller="Owner" asp-action="Index">Back to Art Appointments</a>
+    <a asp-controller="Owner" asp-action="Index">Back to Home Page</a>
 </div>

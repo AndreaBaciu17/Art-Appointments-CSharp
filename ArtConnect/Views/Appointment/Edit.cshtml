@@ -1,7 +1,7 @@
 <!-- added 12.13.24: created 'edit' feature f or frontend of appointments created in database -->
 @model Appointment
 
-<h2>Edit Appointment for @Model.OwnerId on @Model.date.ToLocalTime()</h2>
+<h2>Edit Appointment for @ViewBag.OwnerName on @Model.date.ToLocalTime()</h2> <!--1.17.25: added 'ViewBag.OwnerName' to display the name of the owner of the appointment-->
 <hr> />
 
 <form asp-action="Edit" asp-controller="Appointment" method="post">
@@ -13,6 +13,14 @@
         <input asp-for="date" type="datetime-local" value="@Model.date.ToLocalTime().ToString("yyyy-MM-ddTHH:mm")" class="form-control" />
         <span asp-validation-for="date" class="text-danger"></span>
     </div>
+
+    <!--1.14.24: added 'OwnerTimeZone' to 'Edit' view-->
+    <div class="mb-3">
+        <label asp-for="OwnertimeZone" class="form-label">Time Zone</label>
+        <input asp-for="OwnertimeZone" class="form-control" value="@(Model.OwnertimeZone?.ToString("o") ?? "")" />
+        <span asp-validation-for="OwnertimeZone" class="text-danger"></span>
+    </div>
+
 
     <div class="mb-3">
         <label asp-for="description" class="form-label">Describe purpose of appointment</label>
@@ -36,5 +44,5 @@
 </form>
 
 <div>
-    <a asp-controller="AppointmentController" asp-action="Index">Back to Appointments</a>
+    <a asp-controller="Appointment" asp-action="Index">Back to Appointments</a>
 </div>

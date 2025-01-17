@@ -29,7 +29,7 @@ else
                 <td>@appointment.format</td>
                 <td>@appointment.timeAllotted</td>
                 <td>@appointment.Link</td>
-                <td>@appointment.OwnertimeZone</td>
+                <td>@(appointment.OwnertimeZone?.ToString("o") ?? "Not Set")</td> <!--1.14.24: fixed appointments Format error making 'OwnerTimeZone' nullable-->
                 <td>
                     <a asp-action="Edit" asp-route-id="@appointment.Id.ToString()">Edit</a>
                     <a asp-action="Delete" asp-route-id="@appointment.Id.ToString()" class="btn btn-danger btn-sm">Delete</a>

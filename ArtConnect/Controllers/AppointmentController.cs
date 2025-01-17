@@ -29,31 +29,30 @@ namespace ArtConnect.Controllers
         }
 
         //11.26.24 - 11.27.24: modified, Render the Add Appointment form
+        //1.14.25: fixed OwnerId appointment form error
         public IActionResult Add(ObjectId ownerId)
         {
             var selectedOwner = _ownerService.GetOwnerById(ownerId);
+
             if (selectedOwner == null) return NotFound();
 
-            // 11.27.24: Explicitly map Owner data to AppointmentAddViewModel
-            AppointmentAddViewModel appointmentAddViewModel = new AppointmentAddViewModel();
-
-            appointmentAddViewModel.Appointment = new Appointment();
-            appointmentAddViewModel.Appointment.OwnerId = selectedOwner.Id;
-            appointmentAddViewModel.Appointment.OwnertimeZone = ParseTimeZone(selectedOwner.timeZone);
-            appointmentAddViewModel.Appointment.date = DateTime.UtcNow; // 11.27.24: Default date value
-            appointmentAddViewModel.Appointment.description = string.Empty; // 11.27.24: Default description
-            appointmentAddViewModel.Appointment.format = "Zoom"; // 11.27.24: Default meeting format
-            appointmentAddViewModel.Appointment.Link = string.Empty;
-            appointmentAddViewModel.Appointment.timeAllotted = int.MaxValue;
-
-            return View(appointmentAddViewModel);
+            var viewModel = new AppointmentAddViewModel
+            {
+                Appointment = new Appointment
+                {
+                    OwnerId = selectedOwner.Id, // Ensure OwnerId is set
+                    date = DateTime.UtcNow,
+                    OwnertimeZone = ParseTimeZone(selectedOwner.timeZone) ?? DateTimeOffset.UtcNow // 1.14.25: fixed appointment form error by defaulting to UTC if null
+                }
+            };
+            return View(viewModel);
         }
-        // Helper method to parse timeZone
 
         //12.18.24 fixed timezone error - with private helper parsing method
-        private DateTimeOffset ParseTimeZone(string? timeZone)
+        //1.14.25: set default timezone to UTC if null
+        private DateTimeOffset? ParseTimeZone(string? timeZone)
         {
-            if (string.IsNullOrEmpty(timeZone)) return DateTimeOffset.UtcNow; // 12.18.24 Default to UTC
+            if (string.IsNullOrEmpty(timeZone)) return null; // 12.18.24 Default to UTC //1.14.25: fixed appointment form error by defaulting to null
             try
             {
                 return DateTimeOffset.UtcNow.ToOffset(TimeSpan.Parse(timeZone)); // 12.18.24 Convert string to offset
@@ -61,7 +60,7 @@ namespace ArtConnect.Controllers
             catch (FormatException)
             {
                 Console.WriteLine($"Invalid timeZone format: {timeZone}");
-                return DateTimeOffset.UtcNow; // Fallback to UTC
+                return null; //1.14.25: DateTimeOffset.UtcNow; // Fallback to UTC
             }
         }
 
@@ -69,6 +68,7 @@ namespace ArtConnect.Controllers
         [HttpPost]
         public IActionResult Add(AppointmentAddViewModel appointmentAddViewModel)
         {
+            if (!ModelState.IsValid) return View(appointmentAddViewModel); // 1.17.25: fixed error by returning form with warning if it is not valid
                 Appointment newAppointment = new()
                 {
                     OwnerId = appointmentAddViewModel.Appointment.OwnerId,
@@ -86,6 +86,12 @@ namespace ArtConnect.Controllers
             if (Id == null || string.IsNullOrEmpty(Id)) return NotFound(); //returns 404 screen
             
             var selectedAppointment = _appointmentService.GetAppointmentById(new ObjectId(Id));
+            if (selectedAppointment == null) return NotFound(); //returns 404 screen
+
+            //1.17.25: added in to get owner info fro 'edit appointment' view
+            var owner = _ownerService.GetOwnerById(selectedAppointment.OwnerId); 
+            ViewBag.OwnerName = owner?.ownerName ?? "Unknown";
+
             return View(selectedAppointment);
         }
 

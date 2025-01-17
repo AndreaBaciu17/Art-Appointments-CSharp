@@ -38,26 +38,22 @@ namespace ArtConnect.Controllers
         {
             if (ModelState.IsValid)
             {
-                Owner newOwner = new()
+                var newOwner = ownerAddViewModel.Owner;
+                if (newOwner != null)
                 {
-                    //manually inserted, may be wrong
-                    ownerName = ownerAddViewModel.Owner.ownerName,
-                    aboutMe = ownerAddViewModel.Owner.aboutMe,
-                    style = ownerAddViewModel.Owner.style,
-                    contactInfo = ownerAddViewModel.Owner.contactInfo,
-                    timeZone = ownerAddViewModel.Owner.timeZone
-                };
-                _ownerService.AddOwner(newOwner);
-                return RedirectToAction("Index");
-            }
-            
+                    _ownerService.AddOwner(newOwner);
+                    return RedirectToAction("Index"); // Redirect to the Owners list
+                }
+            }            
             return View(ownerAddViewModel);
         }
 
         public IActionResult Edit(ObjectId id)
         {
-            if (id == null || id == ObjectId.Empty) return NotFound(); //returns 404 screen
-
+            if (id == null || id == ObjectId.Empty)
+            {
+                return NotFound(); //returns 404 screen
+            }
             var selectedOwner = _ownerService.GetOwnerById(id);
             /*if (selectedOwner == null)
             {
@@ -70,20 +66,18 @@ namespace ArtConnect.Controllers
         [HttpPost]
         public IActionResult Edit(Owner owner)
         {
-            try //manually inserted, may be wrong
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid) 
+                try
                 {
                     _ownerService.EditOwner(owner);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index"); // Redirect to the Owners list
                 }
-                else return BadRequest();
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", $"Updating the owner failed: {ex.Message}");
+                }
             }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", $"Updating the owner failed: {ex.Message}");
-            }
-
             return View(owner);
         }
 
