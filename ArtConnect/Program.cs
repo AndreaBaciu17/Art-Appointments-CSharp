@@ -38,6 +38,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Owner}/{action=Index}/{id?}"); //12.4.24: changed 'Home' to 'Owner' view
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
