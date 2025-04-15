@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ArtConnect")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+97f6a98c82d96ccec89d49dc0e4429bf6de68fb1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8fdb08f5cfa8076cf66707c4ef6ac843243929a")]
 [assembly: System.Reflection.AssemblyProductAttribute("ArtConnect")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ArtConnect")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
